@@ -1,0 +1,14 @@
+--create table Users (
+--	UserId int primary key,
+--	Username varchar(30),
+--	[Password] Varchar(30)
+--)
+
+--create table Expenses (
+--	ExpenseId int primary key identity(1, 1),
+--	Title varchar(100) NOT null,
+--	[Desc] varchar(300),
+--	Amount INT Not null,
+--	UserId int,
+--	Constraint FK_Users_Expenses Foreign Key (UserId) References Users(UserId)
+--);
