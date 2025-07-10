@@ -39,3 +39,13 @@
 --('Laundry', 'White shirt dry cleaning', 80, 1),
 --('Iphone 16 Pro', '128 GB variant', 104000, 1),
 --('Shine', 'BSIV', 80000, 1);
+
+--ALTER TABLE Users
+----ADD CONSTRAINT UQ_Users_Username UNIQUE (Username);
+--add Constraint UL_Users_Usename_Length CHECK(LEN(Username)>0)
+
+
+
+--alter table Users
+----alter column [Password] VARCHAR(300) not null
+--add constraint PL_Users_Password_Length Check(Len(Password) > 8)
