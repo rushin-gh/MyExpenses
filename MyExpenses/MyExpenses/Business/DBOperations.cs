@@ -42,5 +42,10 @@ namespace MyExpenses.Business
 
             return expenses;
         }
+
+        public void RegisterUser (User user)
+        {
+
+        }
     }
 }

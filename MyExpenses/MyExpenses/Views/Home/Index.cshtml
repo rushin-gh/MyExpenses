@@ -1,8 +1,27 @@
-﻿@{
+﻿@model MyExpenses.Models.User;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    @* <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+
+    @using(Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+       <div>
+            @Html.LabelFor(x => x.Username, "Username : ", new {})
+            @Html.TextBoxFor(x => x.Username)
+       </div>
+
+       <div>
+            @Html.LabelFor(x => x.Password, "Password : ", new {})
+            @Html.PasswordFor(x => x.Password)
+       </div>
+
+       <div>
+           <button type="reset">Reset</button>
+           <button type="submit">Add User</button>
+       </div>
+    }
 </div>
