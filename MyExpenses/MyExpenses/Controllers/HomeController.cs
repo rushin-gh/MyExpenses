@@ -1,16 +1,19 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using MyExpenses.Business;
 using MyExpenses.Models;
+using System.Diagnostics;
 
 namespace MyExpenses.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DBOperations _dbOperations;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DBOperations dbOperations)
         {
             _logger = logger;
+            _dbOperations = dbOperations;
         }
 
         public IActionResult Index()
@@ -31,8 +34,7 @@ namespace MyExpenses.Controllers
 
         public ActionResult Register(User user)
         {
-
-
+            _dbOperations.RegisterUser(user);
             return RedirectToAction("Index");
         }
     }

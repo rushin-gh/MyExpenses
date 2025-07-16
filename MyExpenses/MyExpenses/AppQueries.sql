@@ -1,4 +1,4 @@
---Use MyExpenseDB;
+Use MyExpenseDB;
 
 --create table Users (
 --	UserId int primary key,
@@ -49,3 +49,17 @@
 --alter table Users
 ----alter column [Password] VARCHAR(300) not null
 --add constraint PL_Users_Password_Length Check(Len(Password) > 8)
+
+--create or alter procedure RegisterUser
+--	@Username VARCHAR(50),
+--	@Password VARCHAR(100)
+--AS
+--BEGIN
+--	IF NOT EXISTS (Select 1 from [Users] Where Username = @Username)
+--	INSERT INTO [Users] Values (@Username, @Password)
+--END
+
+
+--EXEC RegisterUser @Username = 'test', @Password = 'xyz';
+
+--sp_help RegisterUser

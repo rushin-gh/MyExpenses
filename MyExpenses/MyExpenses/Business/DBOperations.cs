@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using MyExpenses.Models;
 
+
 namespace MyExpenses.Business
 {
     public class DBOperations
@@ -11,7 +12,7 @@ namespace MyExpenses.Business
 
         public DBOperations(IConfiguration configuration)
         {
-            _configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+            _configuration = configuration;
             _connectionString = _configuration["ConnectionStrings:MyExpenseDB"];
         }
 
@@ -45,7 +46,26 @@ namespace MyExpenses.Business
 
         public void RegisterUser (User user)
         {
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("RegisterUser", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
+                    cmd.Parameters.AddWithValue("@Username", user.Username);
+                    cmd.Parameters.AddWithValue("@Password", GetHashedPassword(user.Password));
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private string GetHashedPassword(string password)
+        {
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
+            return hashedPassword;
         }
     }
 }
