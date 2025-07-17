@@ -44,6 +44,26 @@ namespace MyExpenses.Business
             return expenses;
         }
 
+        public int GetUserId(User user)
+        {
+            int userId = default;
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("LoginUser", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Username", user.Username);
+                    cmd.Parameters.AddWithValue("@Password", GetHashedPassword(user.Password));
+
+                    userId = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            return userId;
+        }
+
         public void RegisterUser (User user)
         {
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
@@ -66,6 +86,13 @@ namespace MyExpenses.Business
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
             return hashedPassword;
+        }
+
+        private bool UnhashPassword(string password)
+        {
+            var salt = BCrypt.Net.BCrypt.GenerateSalt();
+            var isPasswordMatch = BCrypt.Net.BCrypt.Verify(password, salt);
+            return isPasswordMatch;
         }
     }
 }

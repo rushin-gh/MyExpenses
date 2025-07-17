@@ -2,31 +2,60 @@
 @model MyExpenses.Models.User;
 @{
     ViewData["Title"] = "Home Page";
+    bool showLoginUI = true;
 }
 
 <div class="text-center">
     @* <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
+    @Html.Hidden("ShowLoginUI", showLoginUI, new { id = "showLoginUI" })
 
-    @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @onsubmit = "return ValidateRegistrationForm()", @onreset="resetErrors()" }))
-    {
-       <div>
-            @Html.LabelFor(x => x.Username, "Username : ", new {})
-            @Html.TextBoxFor(x => x.Username, new { @id = "usernameInput"})
-            <div id="username-err"></div>
-       </div>
+    <div id="login-ui">
+        @* Login UI *@
+        @using (Html.BeginForm("Login", "Home", FormMethod.Post))
+        {
+            <div>
+                @Html.LabelFor(x => x.Username, "Username : ", new { })
+                @Html.TextBoxFor(x => x.Username, new { @id = "loginUsernameInput" })
+                <div id="username-err"></div>
+            </div>
 
-       <div>
-            @Html.LabelFor(x => x.Password, "Password : ", new {})
-            @Html.PasswordFor(x => x.Password, new { @id = "passwordInput" })
-            <div id="password-err"></div>
-       </div>
+            <div>
+                @Html.LabelFor(x => x.Password, "Password : ", new { })
+                @Html.PasswordFor(x => x.Password, new { @id = "loginPasswordInput" })
+                <div id="password-err"></div>
+            </div>
 
-       <div>
-           <button type="reset">Reset</button>
-           <button type="submit">Register</button>
-       </div>
-    }
+            <div>
+                <button type="reset">Reset</button>
+                <button type="submit">Login</button>
+            </div>
+            <a onclick="SwitchScreens()">Go to Register</a>
+        }
+    </div>
+
+    <div id="register-ui">
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post, new { @onsubmit = "return ValidateRegistrationForm()", @onreset="resetErrors()" }))
+        {
+           <div>
+                @Html.LabelFor(x => x.Username, "Username : ", new {})
+                @Html.TextBoxFor(x => x.Username, new { @id = "usernameInput"})
+                <div id="username-err"></div>
+           </div>
+
+           <div>
+                @Html.LabelFor(x => x.Password, "Password : ", new {})
+                @Html.PasswordFor(x => x.Password, new { @id = "passwordInput" })
+                <div id="password-err"></div>
+           </div>
+
+           <div>
+               <button type="reset">Reset</button>
+               <button type="submit">Register</button>
+           </div>
+            <a onclick="SwitchScreens()">Go to Login</a>
+        }
+    </div>
 </div>
 
 <script src="js/register.js"></script>

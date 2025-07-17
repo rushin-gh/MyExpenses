@@ -32,6 +32,11 @@ namespace MyExpenses.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public void Login(User user)
+        {
+            user.UserId = _dbOperations.GetUserId(user);
+        }
+
         public ActionResult Register(User user)
         {
             _dbOperations.RegisterUser(user);

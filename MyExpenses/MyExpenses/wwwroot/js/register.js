@@ -1,4 +1,22 @@
-﻿function ValidateRegistrationForm() {
+﻿let ui = document.getElementById('showLoginUI');
+if (Boolean(ui) == true) {
+    document.getElementById('register-ui').style.display = 'none';
+} else {
+    document.getElementById('login-ui').style.display = 'none';
+}
+
+function SwitchScreens() {
+    ui = !ui;
+    if (Boolean(ui) == true) {
+        document.getElementById('login-ui').style.display = '';
+        document.getElementById('register-ui').style.display = 'none';
+    } else {
+        document.getElementById('login-ui').style.display = 'none';
+        document.getElementById('register-ui').style.display = '';
+    }
+}
+
+function ValidateRegistrationForm() {
 
     let usernameInput = document.getElementById('usernameInput');
     let passwordInput = document.getElementById('passwordInput');
