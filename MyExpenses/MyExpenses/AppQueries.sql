@@ -1,4 +1,4 @@
-Use MyExpenseDB;
+--Use MyExpenseDB;
 
 --create table Users (
 --	UserId int primary key,
@@ -63,3 +63,19 @@ Use MyExpenseDB;
 --EXEC RegisterUser @Username = 'test', @Password = 'xyz';
 
 --sp_help RegisterUser
+
+--create or alter procedure GetHashedPassword
+--	@UserName varchar(100)
+--as
+--begin
+--	select Password from Users where Username = @UserName;
+--end;
+
+--GetHashedPassword @UserName = 'rnaikwadi'
+
+--create or alter procedure GetUserId
+--	@UserName varchar(100)
+--As
+--BEGIN
+--	select UserId from Users where Username = @UserName;
+--END;

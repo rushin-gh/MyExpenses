@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 // Register service
-builder.Services.AddSingleton<DBOperations>();
+builder.Services.AddTransient<DBOperations>();
 
 var app = builder.Build();
 

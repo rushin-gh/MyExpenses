@@ -44,24 +44,40 @@ namespace MyExpenses.Business
             return expenses;
         }
 
-        public int GetUserId(User user)
+        public void Login(User user)
         {
-            int userId = default;
+            if (IsValidUser(user))
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+                {
+                    sqlConnection.Open();
+                    using (SqlCommand cmd = new SqlCommand("GetUserId", sqlConnection))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Username", user.Username);
+
+                        user.UserId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+            }
+        }
+
+        public bool IsValidUser(User user)
+        {
+            string hashedPassword = string.Empty;
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
                 sqlConnection.Open();
-                using (SqlCommand cmd = new SqlCommand("LoginUser", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand("GetHashedPassword", sqlConnection))
                 {
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
                     cmd.Parameters.AddWithValue("@Username", user.Username);
-                    cmd.Parameters.AddWithValue("@Password", GetHashedPassword(user.Password));
 
-                    userId = Convert.ToInt32(cmd.ExecuteScalar());
+                    hashedPassword = cmd.ExecuteScalar().ToString();
                 }
             }
 
-            return userId;
+            return BCrypt.Net.BCrypt.Verify(user.Password, hashedPassword); ;
         }
 
         public void RegisterUser (User user)
@@ -86,13 +102,6 @@ namespace MyExpenses.Business
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
             return hashedPassword;
-        }
-
-        private bool UnhashPassword(string password)
-        {
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
-            var isPasswordMatch = BCrypt.Net.BCrypt.Verify(password, salt);
-            return isPasswordMatch;
         }
     }
 }

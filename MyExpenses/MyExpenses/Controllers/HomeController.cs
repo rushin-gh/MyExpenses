@@ -32,9 +32,14 @@ namespace MyExpenses.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public void Login(User user)
+        public ActionResult Login(User user)
         {
-            user.UserId = _dbOperations.GetUserId(user);
+            _dbOperations.Login(user);
+            if (user.UserId > 0)
+            {
+                return RedirectToAction("ShowExpenses", "Expense", new { userId = user.UserId });
+            }
+            return View();
         }
 
         public ActionResult Register(User user)
