@@ -42,6 +42,11 @@ namespace MyExpenses.Controllers
             return View();
         }
 
+        public ActionResult LogOut()
+        {
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Register(User user)
         {
             _dbOperations.RegisterUser(user);
