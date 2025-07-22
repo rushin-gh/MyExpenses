@@ -39,10 +39,10 @@ namespace MyExpenses.Controllers
             {
                 return RedirectToAction("ShowExpenses", "Expense", new { userId = user.UserId });
             }
-            return View();
+            return RedirectToAction("Index");
         }
 
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
             return RedirectToAction("Index");
         }

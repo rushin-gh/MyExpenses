@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MyExpenses.Models.Expense;
+@{
+}
+
+<style>
+    .expInp {
+        margin: 10px 20px
+    }
+</style>
+
+<div>
+    @using (Html.BeginForm("AddExpense", "Expense", FormMethod.Post))
+    {
+        <div class="expInp">
+            @Html.TextBoxFor(Model => Model.Title, new { @placeholder = "Expense Name", @class = "form-control" })
+        </div>
+
+        <div class="expInp">
+            @Html.TextAreaFor(Model => Model.Desc, new { @placeholder = "Expense Description", @class = "form-control", rows = 1 })
+        </div>
+
+        <div class="expInp">
+            @Html.TextBoxFor(Model => Model.Amount, new { @placeholder = "Expense Amount", @class = "form-control" })
+        </div>
+
+        <div class="expInp" style="text-align: end">
+            <button style="font:30px">Add</button>
+        </div>
+    }
+</div>

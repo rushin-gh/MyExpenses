@@ -25,5 +25,17 @@ namespace MyExpenses.Controllers
             var expenses = dBOperations.GetExpenses(userId);
             return View(expenses);
         }
+
+        [HttpGet]
+        public IActionResult AddExpense()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddExpense(Expense expense)
+        {
+            return View();
+        }
     }
 }

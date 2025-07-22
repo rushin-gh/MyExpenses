@@ -36,9 +36,9 @@
 
 
 --insert into Expenses values
---('Laundry', 'White shirt dry cleaning', 80, 1),
---('Iphone 16 Pro', '128 GB variant', 104000, 1),
---('Shine', 'BSIV', 80000, 1);
+--('Laundry', 'White shirt dry cleaning', 80, 9),
+--('Iphone 16 Pro', '128 GB variant', 104000, 9),
+--('Shine', 'BSIV', 80000, 9);
 
 --ALTER TABLE Users
 ----ADD CONSTRAINT UQ_Users_Username UNIQUE (Username);
@@ -79,3 +79,6 @@
 --BEGIN
 --	select UserId from Users where Username = @UserName;
 --END;
+
+--delete from Expenses;
+--delete from Users;

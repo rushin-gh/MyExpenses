@@ -73,11 +73,17 @@ namespace MyExpenses.Business
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@Username", user.Username);
 
-                    hashedPassword = cmd.ExecuteScalar().ToString();
+                    var scalarResult = cmd.ExecuteScalar();
+                    if (scalarResult != null)
+                    {
+                        hashedPassword = scalarResult.ToString();
+                    }
                 }
             }
 
-            return BCrypt.Net.BCrypt.Verify(user.Password, hashedPassword); ;
+            return string.IsNullOrWhiteSpace(hashedPassword)
+                    ? false 
+                    : BCrypt.Net.BCrypt.Verify(user.Password, hashedPassword); ;
         }
 
         public void RegisterUser (User user)
