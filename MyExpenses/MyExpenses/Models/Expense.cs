@@ -8,6 +8,8 @@
 
         public decimal Amount { get; set; }
 
+        public Expense() { }
+
         public Expense(string title, string desc, decimal amount)
         {
             Title = title;

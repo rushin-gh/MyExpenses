@@ -82,3 +82,8 @@
 
 --delete from Expenses;
 --delete from Users;
+
+/*
+username - rnaikwadi
+password - 10#Hammer
+*/

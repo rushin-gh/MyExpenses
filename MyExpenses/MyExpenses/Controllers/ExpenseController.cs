@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyExpenses.Models;
 using MyExpenses.Business;
+using Org.BouncyCastle.Bcpg;
 
 namespace MyExpenses.Controllers
 {
@@ -20,8 +21,13 @@ namespace MyExpenses.Controllers
             return View(expenses);
         }
 
-        public IActionResult ShowExpenses(int userId)
+        public IActionResult ShowExpenses()
         {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (!userId.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var expenses = dBOperations.GetExpenses(userId);
             return View(expenses);
         }
@@ -29,13 +35,19 @@ namespace MyExpenses.Controllers
         [HttpGet]
         public IActionResult AddExpense()
         {
-            return View();
+            return View(new Expense());
         }
 
         [HttpPost]
         public IActionResult AddExpense(Expense expense)
         {
-            return View();
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (!userId.HasValue)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            dBOperations.AddExpense(userId, expense);
+            return RedirectToAction("ShowExpenses");
         }
     }
 }

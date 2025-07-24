@@ -16,7 +16,7 @@ namespace MyExpenses.Business
             _connectionString = _configuration["ConnectionStrings:MyExpenseDB"];
         }
 
-        public List<Expense> GetExpenses(int userId)
+        public List<Expense> GetExpenses(int? userId)
         {
             var expenses = new List<Expense>();
 
@@ -108,6 +108,25 @@ namespace MyExpenses.Business
             var salt = BCrypt.Net.BCrypt.GenerateSalt();
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
             return hashedPassword;
+        }
+
+        public void AddExpense(int? userId, Expense expense)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("AddExpense", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Title", expense.Title);
+                    cmd.Parameters.AddWithValue("@Desc", expense.Desc);
+                    cmd.Parameters.AddWithValue("@Amount", expense.Amount);
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
     }
 }

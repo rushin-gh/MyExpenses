@@ -37,7 +37,8 @@ namespace MyExpenses.Controllers
             _dbOperations.Login(user);
             if (user.UserId > 0)
             {
-                return RedirectToAction("ShowExpenses", "Expense", new { userId = user.UserId });
+                HttpContext.Session.SetInt32("UserId", user.UserId);
+                return RedirectToAction("ShowExpenses", "Expense");
             }
             return RedirectToAction("Index");
         }
