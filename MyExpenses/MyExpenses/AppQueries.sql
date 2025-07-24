@@ -21,6 +21,17 @@
 --insert into Expenses values
 --('Visit to Dmart', 'Shoes, Raincoat, Wheel, Crocks', 1930, 1)
 
+--create or alter procedure AddExpense
+--	@Title VARCHAR(100),
+--	@Desc VARCHAR(300),
+--	@Amount INT,
+--	@UserId INT
+--AS
+--BEGIN
+--	insert into Expenses values
+--	(@Title, @Desc, @Amount, @UserId)
+--END
+
 --select * from Expenses
 
 --sp_help Users
@@ -87,3 +98,4 @@
 username - rnaikwadi
 password - 10#Hammer
 */
+
