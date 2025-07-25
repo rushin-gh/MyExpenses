@@ -40,7 +40,7 @@
 --	@UserId INT
 --AS
 --BEGIN
---	Select Title, [Desc], Amount FROM Expenses where UserId = @UserId;
+--	Select ExpenseId, Title, [Desc], Amount FROM Expenses where UserId = @UserId;
 --END
 
 --GetUserExpenses @UserId = 1;
