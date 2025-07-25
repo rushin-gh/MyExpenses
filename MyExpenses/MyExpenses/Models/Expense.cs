@@ -2,6 +2,8 @@
 {
     public class Expense
     {
+        public int Id { get; set; }
+
         public string Title { get; set; }
 
         public string Desc { get; set; }
@@ -10,13 +12,14 @@
 
         public Expense() { }
 
-        public Expense(string title, string desc, decimal amount)
+        public Expense(int id, string title, string desc, decimal amount)
         {
+            Id = id;
             Title = title;
             Desc = desc;
             Amount = amount;
         }
 
-        public Expense(string title, decimal amount) : this(title, string.Empty, amount) { }
+        public Expense(int id, string title, decimal amount) : this(id, title, string.Empty, amount) { }
     }
 }

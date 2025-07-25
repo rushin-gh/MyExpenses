@@ -32,10 +32,11 @@ namespace MyExpenses.Business
                     {
                         while (reader.Read())
                         {
+                            var id = Convert.ToInt32(reader["ExpenseId"]);
                             var title = reader["Title"].ToString();
                             var desc = reader["Desc"].ToString();
                             var amount = reader.GetInt32(reader.GetOrdinal("Amount"));
-                            expenses.Add(new Expense(title, desc, amount));
+                            expenses.Add(new Expense(id, title, desc, amount));
                         }
                     }
                 }
