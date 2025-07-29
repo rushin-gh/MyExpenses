@@ -49,5 +49,12 @@ namespace MyExpenses.Controllers
             dBOperations.AddExpense(userId, expense);
             return RedirectToAction("ShowExpenses");
         }
+
+
+        [HttpGet]
+        public JsonResult UpdateExpense(int expenseId)
+        {
+            return Json(new { Name = "Rushi", Age = 24 });
+        }
     }
 }

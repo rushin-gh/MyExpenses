@@ -1,4 +1,5 @@
-﻿@model List<MyExpenses.Models.Expense>
+﻿<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+@model List<MyExpenses.Models.Expense>
 @{
 
 }
@@ -34,14 +35,14 @@
     /* Zebra Striping (optional: for alternating row colors) */
     /* Uncomment the following block if you want alternating row backgrounds */
     /*
-            tr:nth-child(even) {
-              background-color: #f9f9f9;
-            }
-            */
+                tr:nth-child(even) {
+                  background-color: #f9f9f9;
+                }
+                */
 
     /* Hover effect on rows */
     /*     tr:hover {
-            background-color: #f5f5f5; /* Slightly darker background on row hover */
+                background-color: #f5f5f5; /* Slightly darker background on row hover */
     }
 
     */
@@ -100,7 +101,25 @@
 
         for (let i = 0; i < updButton.length; i++) {
             updButton[i].addEventListener('click', function(event) {
-                console.log(event.target.id);
+                let id = event.target.id;
+                let ex_id = id.split('-')[1];
+                console.log(ex_id);
+                $.ajax({
+                    type: 'post',
+                    url: 'UpdateExpense',
+                    contentType: "application/json; charset=utf-8",
+                    data: { expenseid : ex_id },
+                    datatype: 'json',
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    complete: function(){
+                        console.log('Do Nothing'); // Hide loader icon
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
+                    }
+                });
             });
         }
     });
