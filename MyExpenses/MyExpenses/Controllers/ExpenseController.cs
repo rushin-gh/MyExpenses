@@ -50,11 +50,17 @@ namespace MyExpenses.Controllers
             return RedirectToAction("ShowExpenses");
         }
 
-
-        [HttpGet]
-        public JsonResult UpdateExpense(int expenseId)
+        public ActionResult UpdateExpense(int expenseId)
         {
-            return Json(new { Name = "Rushi", Age = 24 });
+            Expense expense = dBOperations.GetExpenseById(expenseId);
+            return View(expense);
         }
+
+        //public ActionResult UpdateExpense(Expense expense)
+        //{
+        //    //dBOperations.UpdateExpense(expense);
+        //    return View();
+
+        //}
     }
 }

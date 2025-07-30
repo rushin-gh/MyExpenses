@@ -81,7 +81,10 @@
                         <td>@expense.Title</td>
                         <td>@expense.Desc</td>
                         <td>@expense.Amount</td>
-                        <td class="upd" id="eid-@expense.Id"></td>
+                        @{
+                            string updUrl = $"/Expense/UpdateExpense?expenseId={expense.Id}";
+                        }
+                        <td><a href=@updUrl>UPD</a></td>
                     </tr>
                 }
             </tbody>
@@ -96,31 +99,26 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let updButton = document.getElementsByClassName('upd');
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     let updButton = document.getElementsByClassName('upd');
 
-        for (let i = 0; i < updButton.length; i++) {
-            updButton[i].addEventListener('click', function(event) {
-                let id = event.target.id;
-                let ex_id = id.split('-')[1];
-                console.log(ex_id);
-                $.ajax({
-                    type: 'post',
-                    url: 'UpdateExpense',
-                    contentType: "application/json; charset=utf-8",
-                    data: { expenseid : ex_id },
-                    datatype: 'json',
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    complete: function(){
-                        console.log('Do Nothing'); // Hide loader icon
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message
-                    }
-                });
-            });
-        }
-    });
+    //     for (let i = 0; i < updButton.length; i++) {
+    //         updButton[i].addEventListener('click', function(event) {
+    //             let id = event.target.id;
+    //             let ex_id = id.split('-')[1];
+    //             console.log(ex_id);
+    //             $.ajax({
+    //                 type: 'get',
+    //                 url: 'UpdateExpense',
+    //                 contentType: "application/json; charset=utf-8",
+    //                 data: { expenseid : ex_id },
+    //                 datatype: 'json',
+    //                 success: function(resp) {
+
+    //                 }
+    //                 // async: true
+    //             });
+    //         });
+    //     }
+    // });
 </script>

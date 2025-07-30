@@ -129,5 +129,32 @@ namespace MyExpenses.Business
                 }
             }
         }
+
+        public Expense GetExpenseById(int expenseId)
+        {
+            Expense expense = new Expense();
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("GetExpenseById", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ExpenseId", expenseId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var id = Convert.ToInt32(reader["ExpenseId"]);
+                            var title = reader["Title"].ToString();
+                            var desc = reader["Desc"].ToString();
+                            var amount = reader.GetInt32(reader.GetOrdinal("Amount"));
+                            
+                            expense = new Expense(id, title, desc, amount);
+                        }
+                    }
+                }
+            }
+            return expense;
+        }
     }
 }
