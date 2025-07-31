@@ -56,11 +56,11 @@ namespace MyExpenses.Controllers
             return View(expense);
         }
 
-        //public ActionResult UpdateExpense(Expense expense)
-        //{
-        //    //dBOperations.UpdateExpense(expense);
-        //    return View();
+        public ActionResult UpdateExpenseInDB(Expense expense)
+        {
+            dBOperations.UpdateExpenseInDB(expense);
+            return RedirectToAction("ShowExpenses");
 
-        //}
+        }
     }
 }

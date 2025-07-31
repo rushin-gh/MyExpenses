@@ -45,6 +45,7 @@ namespace MyExpenses.Controllers
 
         public ActionResult Logout()
         {
+            HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }
 

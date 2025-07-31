@@ -156,5 +156,23 @@ namespace MyExpenses.Business
             }
             return expense;
         }
+
+        public void UpdateExpenseInDB(Expense expense)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("UpdateExpenseById", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ExpenseId", expense.Id);
+                    cmd.Parameters.AddWithValue("@Title", expense.Title);
+                    cmd.Parameters.AddWithValue("@Desc", expense.Desc);
+                    cmd.Parameters.AddWithValue("@Amount", expense.Amount);
+                    
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

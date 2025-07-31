@@ -99,3 +99,27 @@ username - rnaikwadi
 password - 10#Hammer
 */
 
+--create or alter procedure GetExpenseById
+--	@ExpenseId INT
+--AS
+--BEGIN
+--	Select * FROM Expenses WHERE ExpenseId = @ExpenseId;
+--END
+
+--GetExpenseById 11;
+
+--create or alter procedure UpdateExpenseById
+--	@ExpenseId INT,
+--	@Title VARCHAR(100),
+--	@Desc VARCHAR(300),
+--	@Amount DECIMAL(12, 2)
+--AS
+--BEGIN
+--	UPDATE Expenses
+--	SET
+--		Title = @Title,
+--		[Desc] = @Desc,
+--		Amount = @Amount
+--	WHERE
+--		ExpenseId = @ExpenseId
+--END

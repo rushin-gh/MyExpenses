@@ -9,8 +9,9 @@
 </style>
 
 <div>
-    @using (Html.BeginForm("UpdateExpenseAtDB", "Expense", FormMethod.Post))
+    @using (Html.BeginForm("UpdateExpenseInDB", "Expense", FormMethod.Post))
     {
+        @Html.HiddenFor(model => model.Id);
         <div class="expInp">
             @Html.TextBoxFor(Model => Model.Title, new { @placeholder = "Expense Name", @class = "form-control" })
         </div>
