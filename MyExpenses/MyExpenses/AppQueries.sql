@@ -135,3 +135,25 @@ password - 10#Hammer
 --DeleteExpenseById 13;
 
 --select * from Users;
+
+--Alter table Users
+--Add Active INT
+--Default 1
+
+--Alter table Users
+--drop column Active
+
+--update Users Set Active = 1
+
+--alter table Expenses
+--add Active int
+--default 1
+
+--update Expenses Set Active = 1
+
+
+--Alter table Users
+--Add CreatedOn DATETIME2(3)
+--Default GETDATE();
+
+--update Expenses set CreatedOn = GETDATE()
