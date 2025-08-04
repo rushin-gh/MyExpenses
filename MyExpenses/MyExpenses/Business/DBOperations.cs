@@ -174,5 +174,19 @@ namespace MyExpenses.Business
                 }
             }
         }
+
+        public void DeleteExpenseById(int expenseId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand cmd = new SqlCommand("DeleteExpenseById", sqlConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ExpenseId", expenseId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

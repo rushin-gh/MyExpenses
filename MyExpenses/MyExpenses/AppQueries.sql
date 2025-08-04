@@ -123,3 +123,15 @@ password - 10#Hammer
 --	WHERE
 --		ExpenseId = @ExpenseId
 --END
+
+--create or alter procedure DeleteExpenseById
+--	@ExpenseId INT
+--AS
+--BEGIN
+--	DELETE From Expenses where ExpenseId = @ExpenseId;
+--END;
+
+--select * from Expenses;
+--DeleteExpenseById 13;
+
+--select * from Users;

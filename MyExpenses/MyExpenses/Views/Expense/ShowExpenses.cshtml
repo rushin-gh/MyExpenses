@@ -72,6 +72,7 @@
                     <th>Description</th>
                     <th>Amount</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,8 +84,10 @@
                         <td>@expense.Amount</td>
                         @{
                             string updUrl = $"/Expense/UpdateExpense?expenseId={expense.Id}";
+                            string delUrl = $"/Expense/DeleteExpense?expenseId={expense.Id}";
                         }
                         <td><a href=@updUrl>UPD</a></td>
+                        <td><a href=@delUrl>DEL</a></td>
                     </tr>
                 }
             </tbody>

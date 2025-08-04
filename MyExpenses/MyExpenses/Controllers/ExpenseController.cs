@@ -62,5 +62,11 @@ namespace MyExpenses.Controllers
             return RedirectToAction("ShowExpenses");
 
         }
+
+        public ActionResult DeleteExpense(int expenseId)
+        {
+            dBOperations.DeleteExpenseById(expenseId);
+            return RedirectToAction("ShowExpenses");
+        }
     }
 }
