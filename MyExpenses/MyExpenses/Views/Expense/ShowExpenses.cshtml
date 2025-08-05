@@ -1,68 +1,114 @@
 ﻿<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 @model List<MyExpenses.Models.Expense>
-@{
-
-}
 
 <style>
-    /* Basic Table Styling */
-    table {
-        width: 100%; /* Makes the table take up the full width of its container */
-        border-collapse: collapse; /* Collapses borders into a single border */
-        margin-bottom: 20px; /* Adds some space below the table */
-        font-family: Arial, sans-serif; /* Sets a common sans-serif font */
-        table-layout: fixed;
-        width: 100%;
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f7fa;
     }
 
-    /* Table Headers (th) and Table Data (td) */
+    a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .add-expense-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        font-weight: 500;
+        font-size: 1.1em;
+        background-color: #007bff;
+        color: white !important;
+        padding: 10px 16px;
+        border-radius: 5px;
+    }
+
+        .add-expense-link:hover {
+            background-color: #0056b3;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        table-layout: fixed;
+    }
+
     th, td {
-        max-width: 33%;
-        border: 1px solid #ddd; /* Light grey border for cells */
-        padding: 8px; /* Padding inside cells */
-        text-align: left; /* Aligns text to the left by default */
+        border: 1px solid #ddd;
+        padding: 12px 10px;
+        text-align: left;
         word-wrap: break-word;
     }
 
-    /* Table Headers Specific Styling */
     th {
-        background-color: #f2f2f2; /* Light grey background for headers */
-        color: #333; /* Darker text color for headers */
-        font-weight: bold; /* Bold text for headers */
-        text-align: center; /* Center align header text */
-    }
-
-    /* Zebra Striping (optional: for alternating row colors) */
-    /* Uncomment the following block if you want alternating row backgrounds */
-    /*
-                tr:nth-child(even) {
-                  background-color: #f9f9f9;
-                }
-                */
-
-    /* Hover effect on rows */
-    /*     tr:hover {
-                background-color: #f5f5f5; /* Slightly darker background on row hover */
-    }
-
-    */
-    /* Caption styling (if you use a <caption> element) */
-    caption {
-        padding: 10px;
-        font-size: 1.2em;
-        font-weight: bold;
-        text-align: left;
-        margin-bottom: 10px;
+        background-color: #f1f1f1;
         color: #333;
+        text-align: center;
+        font-weight: 600;
     }
 
-    .upd:hover {
-        background-color: yellow;
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .action-link {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 0.9em;
+        font-weight: 500;
+    }
+
+    .upd {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+        .upd:hover {
+            background-color: #e0a800;
+        }
+
+    .del {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .del:hover {
+            background-color: #c82333;
+        }
+
+    .no-expenses {
+        font-style: italic;
+        color: #666;
+        margin-top: 20px;
     }
 </style>
 
-<div>
-    @Html.ActionLink("For adding expenses, click here...", "AddExpense", "Expense")
+<div class="container">
+    <a class="add-expense-link" href="@Url.Action("AddExpense", "Expense")">+ Add New Expense</a>
+
     @if (Model.Any())
     {
         <table>
@@ -81,13 +127,13 @@
                     <tr>
                         <td>@expense.Title</td>
                         <td>@expense.Desc</td>
-                        <td>@expense.Amount</td>
-                        @{
-                            string updUrl = $"/Expense/UpdateExpense?expenseId={expense.Id}";
-                            string delUrl = $"/Expense/DeleteExpense?expenseId={expense.Id}";
-                        }
-                        <td><a href=@updUrl>UPD</a></td>
-                        <td><a href=@delUrl>DEL</a></td>
+                        <td>₹@expense.Amount</td>
+                        <td>
+                            <a class="action-link upd" href="@Url.Action("UpdateExpense", "Expense", new { expenseId = expense.Id })">Update</a>
+                        </td>
+                        <td>
+                            <a class="action-link del" href="@Url.Action("DeleteExpense", "Expense", new { expenseId = expense.Id })">Delete</a>
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -95,33 +141,6 @@
     }
     else
     {
-        <div>
-            No expenses exists...
-        </div>
+        <div class="no-expenses">No expenses exist. Start by adding one above.</div>
     }
 </div>
-
-<script>
-    // document.addEventListener("DOMContentLoaded", function() {
-    //     let updButton = document.getElementsByClassName('upd');
-
-    //     for (let i = 0; i < updButton.length; i++) {
-    //         updButton[i].addEventListener('click', function(event) {
-    //             let id = event.target.id;
-    //             let ex_id = id.split('-')[1];
-    //             console.log(ex_id);
-    //             $.ajax({
-    //                 type: 'get',
-    //                 url: 'UpdateExpense',
-    //                 contentType: "application/json; charset=utf-8",
-    //                 data: { expenseid : ex_id },
-    //                 datatype: 'json',
-    //                 success: function(resp) {
-
-    //                 }
-    //                 // async: true
-    //             });
-    //         });
-    //     }
-    // });
-</script>
